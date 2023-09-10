@@ -1,0 +1,165 @@
+@charset "UTF-8"; 
+
+/* Основные стили */
+:root {
+   font-family: "Segoe UI";
+   font-size: 35pt;
+}
+#calendar_preview_year {
+   position: fixed;
+   inset: calc(50% - 0.7rem) 0.5rem auto;
+   display: flex;
+   justify-content: space-between;
+   color: rgb(197 156 101);
+   z-index: -1;
+}
+#calendar_preview_year::before, #calendar_preview_year::after {
+   content: attr(data-year);
+}
+body {
+   margin: 0;
+   color: #333;
+}
+button {
+   color: inherit;
+   font-family: inherit;
+}
+.vanilla-calendar button {
+   background: none;
+   outline: none !important;
+}
+.vanilla-calendar {
+   margin: 0 auto;
+   padding: 0;
+}
+.vanilla-calendar-grid {
+   gap: 0;
+   grid-auto-flow: row;
+}
+
+/* Уведомления */
+#toast {
+   position: fixed;
+   inset: 10px 10px auto auto;
+   font-size: 15px;
+   color: #313131;
+}
+#toast > div {
+   padding: 17px 20px;
+   margin-bottom: 10px;
+   border-radius: 4px;
+   width: 250px;
+}
+#toast a {
+   color: inherit;
+   text-underline-offset: 2px;
+   text-decoration-color: #cbcbcb;
+   text-decoration-skip-ink: none;
+}
+#toast .info {
+   background: #def2fd;
+}
+#toast .warn {
+   background: #ffebd9;
+}
+
+/* Ширина календаря */
+.vanilla-calendar-column {
+   width: 20cm;
+   page-break-after: always;
+}
+
+/* Месяц */
+.vanilla-calendar-month {
+   font-weight: 100;
+}
+
+/* Год */
+.vanilla-calendar-year {
+   display: none;
+}
+
+/* Расстояние между строк */
+.vanilla-calendar-week-numbers__content,
+.vanilla-calendar-days {
+   row-gap: 0;
+}
+.vanilla-calendar-week-number,
+.vanilla-calendar-day__btn {
+   min-height: 1.2rem;
+}
+
+/* Название дней недели: пн, вт, ср, ... */
+.vanilla-calendar-week__day {
+   color: rgb(147 147 147);
+   font-size: 0.55rem;
+   font-weight: normal;
+   text-transform: lowercase;
+}
+
+/* Дни месяца */
+.vanilla-calendar-day__btn {
+   font-weight: 700;
+}
+
+/* Выходные и праздничные дни */
+.vanilla-calendar-day__btn_holiday {
+   color: rgb(242 125 109);
+   font-weight: 500;
+}
+
+/* Дни прошлого и следующего года */
+.vanilla-calendar-day__btn_disabled {
+   display: none;
+}
+
+/* Дни прошлого и следующего месяца */
+.vanilla-calendar-day__btn_prev, .vanilla-calendar-day__btn_next {
+   color: rgb(210 210 210);
+   font-weight: 100;
+}
+
+/* Выходные дни прошлого и следующего месяца */
+.vanilla-calendar-day__btn_holiday:is(.vanilla-calendar-day__btn_prev, .vanilla-calendar-day__btn_next) {
+   color: rgb(255 187 178);
+}
+
+/* Номера недели */
+.vanilla-calendar-week-numbers__title {
+   visibility: hidden;
+}
+.vanilla-calendar-week-numbers {
+   flex-grow: 0;
+}
+.vanilla-calendar-week-numbers .vanilla-calendar-week-numbers__content {
+   border: 0.03rem hidden rgb(239 239 239);
+}
+.vanilla-calendar-week-numbers:first-of-type .vanilla-calendar-week-numbers__content {
+   border-right-style: solid;
+}
+.vanilla-calendar-week-numbers:last-of-type .vanilla-calendar-week-numbers__content {
+   border-left-style: solid;
+}
+.vanilla-calendar-week-number {
+   color: rgb(153 153 153);
+   font-size: 0.42rem;
+   font-weight: 100;
+   position: relative;
+   top: -0.01rem;
+   cursor: default;
+}
+
+/* Для монитора */
+@media screen {
+   .vanilla-calendar-column {
+      outline: 2px dashed rgb(171 171 171);
+      outline-offset: -1px;
+   }
+}
+
+/* Для печати */
+@media print {
+   #calendar_preview_year, #toast {
+      display: none;
+   }
+}
