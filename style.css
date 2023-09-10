@@ -2,7 +2,7 @@
 
 /* Основные стили */
 :root {
-   font-family: "Segoe UI";
+   font-family: system-ui, sans-serif;
    font-size: 35pt;
 }
 #calendar_preview_year {
@@ -141,11 +141,11 @@ button {
    border-left-style: solid;
 }
 .vanilla-calendar-week-number {
-   color: rgb(153 153 153);
-   font-size: 0.42rem;
-   font-weight: 100;
-   position: relative;
-   top: -0.01rem;
+   font-family: math, serif;
+   font-size: 0.39rem;
+   font-weight: 300;
+   align-items: flex-end;
+   color: rgb(170 170 170);
    cursor: default;
 }
 
