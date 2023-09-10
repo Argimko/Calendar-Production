@@ -7,7 +7,7 @@
 }
 #calendar_preview_year {
    position: fixed;
-   inset: calc(50% - 0.7rem) 0.5rem auto;
+   inset: auto 0.5rem 0.1rem;
    display: flex;
    justify-content: space-between;
    color: rgb(197 156 101);
@@ -42,23 +42,23 @@ button {
    display: flex;
    font-size: 13px;
    flex-direction: column;
+   gap: 20px;
    position: fixed;
    inset: 10px auto auto 10px;
    padding: 17px 20px;
-   width: 350px;
+   width: 250px;
    border-radius: 5px;
    background: rgb(235 235 235);
 }
 #settings h2 {
    font-weight: 500;
-   margin-top: 0;
+   margin: 0;
 }
 #settings button {
    font-size: 20px;
    font-weight: 600;
    align-self: center;
-   padding: 10px 50px;
-   width: 70%;
+   padding: 5px 50px;
 }
 
 /* Уведомления */
@@ -90,6 +90,10 @@ button {
 /* Ширина календаря */
 .vanilla-calendar-column {
    width: 20cm;
+   background-image: var(--bg);
+   background-size: cover;
+   outline: 2px dashed rgb(171 171 171);
+   outline-offset: -1px;
    page-break-after: always;
 }
 
@@ -156,7 +160,7 @@ button {
    flex-grow: 0;
 }
 .vanilla-calendar-week-numbers .vanilla-calendar-week-numbers__content {
-   border: 0.03rem hidden rgb(239 239 239);
+   border: 0.03rem hidden rgb(0 0 0 / 7%);
 }
 .vanilla-calendar-week-numbers:first-of-type .vanilla-calendar-week-numbers__content {
    border-right-style: solid;
@@ -173,16 +177,15 @@ button {
    cursor: default;
 }
 
-/* Для монитора */
-@media screen {
-   .vanilla-calendar-column {
-      outline: 2px dashed rgb(171 171 171);
-      outline-offset: -1px;
-   }
-}
+
 
 /* Для печати */
 @media print {
+   .vanilla-calendar-column {
+      outline: none;
+      width: 100vw;
+      height: 100vh;
+   }
    #calendar_preview_year, #toast, #settings {
       display: none;
    }
