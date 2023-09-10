@@ -67,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
    // Обработка ошибок
    const showError = msg => {
       msg = msg.replaceAll('holidays.js', '<a href="holidays.js" target="_blank">holidays.js</a>');
-      console.warn(msg);
+      // console.warn(msg);
       document.getElementById('toast').insertAdjacentHTML('beforeend', `<div class="warn">❗ ${msg}</div>`);
-      alert('❗ ' + msg.replaceAll(/<\/?[^>]+(>|$)/g, ''));
+      // alert('❗ ' + msg.replaceAll(/<\/?[^>]+(>|$)/g, ''));
    };
 
    // Проверка: Опция [settings.visibility.weekend] должна быть отключена
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showError(`Данные в файле holidays.js [${holidays.length}] отличаются от ` +
                       `<a href="https://github.com/d10xa/holidays-calendar" target="_blank">производственного календаря на GitHub</a> [${remote.holidays.length}]`);
          }
-      });
+      }, error => showError(`Не удалось загрузить список выходных и праздничных дней с <a href="${holidaysUrl}" target="_blank">GitHub</a>`));
    }
    
    // Отобразить страницу - эта строка выполнится если код выше корректен
