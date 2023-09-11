@@ -3,7 +3,10 @@
 /* Основные стили */
 :root {
    font-family: system-ui, sans-serif;
-   font-size: 35pt;
+   /*font-size: 35pt;*/
+}
+[v-cloak] {
+   display: none;
 }
 #calendar_preview_year {
    position: fixed;
@@ -48,7 +51,7 @@ button {
    padding: 17px 20px;
    width: 250px;
    border-radius: 5px;
-   background: rgb(235 235 235);
+   background: rgb(230 230 230);
 }
 #settings h2 {
    font-weight: 500;

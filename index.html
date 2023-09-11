@@ -12,25 +12,39 @@
 
       <link rel="icon" href="./vanilla/favicon.ico" />
 
-      <!-- Plugin CSS, JS -->
+      <!-- Vanilla CSS, JS -->
       <link href="./vanilla//vanilla-calendar.min.css" rel="stylesheet">
       <script src="./vanilla/vanilla-calendar.min.js" defer></script>
       
+      <!-- Vue CSS, JS -->
+      <link href="https://unpkg.com/primevue@3/resources/themes/saga-green/theme.css" rel="stylesheet" />
+      <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/core/core.min.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/button/button.min.js" defer></script>
+
       <!-- User CSS, JS -->
       <link href="./style.css" rel="stylesheet">
       <script src="./holidays.js" defer></script>
       <script src="./calendar.js" defer></script>
       <script src="./ui.js" defer></script>
+      
+      <style type="text/css" id="pageSize"></style>
    </head>
    
-   <body style="display: none">
+   <body id="app" v-cloak>
       <div id="calendar"></div>
       <div id="calendar_preview_year"></div>
       <div id="settings">
          <h2>Настройки</h2>
+         
          <input id="bgButton" type="file">
+
+         <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
+
          <button onclick="window.print()">Печать</button>
       </div>
+
       <div id="toast">
          <div class="info"><a href="https://www.consultant.ru/law/ref/calendar/proizvodstvennye/" target="_blank">Производственный календарь КонсультантПлюс для сверки</a></div>
       </div>

@@ -101,5 +101,5 @@ document.addEventListener('DOMContentLoaded', () => {
    }
    
    // Отобразить страницу - эта строка выполнится если код выше корректен
-   document.body.removeAttribute('style');
+   // document.body.removeAttribute('style');
 });
