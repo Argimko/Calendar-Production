@@ -22,6 +22,7 @@
       <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
       <script src="https://unpkg.com/primevue@3/core/core.min.js" defer></script>
       <script src="https://unpkg.com/primevue@3/button/button.min.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/fileupload/fileupload.min.js" defer></script>
 
       <!-- User CSS, JS -->
       <link href="./style.css" rel="stylesheet">
@@ -38,11 +39,17 @@
       <div id="settings">
          <h2>Настройки</h2>
          
-         <input id="bgButton" type="file">
+         <div>
+            <label>Фон</label>
+            <p-fileupload mode="basic" name="demo[]"></p-fileupload>
+         </div>
 
-         <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
-
-         <button onclick="window.print()">Печать</button>
+         <div>
+            <label>Размер бумаги</label>
+            <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value" />
+         </div>
+         
+         <p-button label="Печать" icon="pi pi-print" :loading="loading" @click="printPage" />
       </div>
 
       <div id="toast">

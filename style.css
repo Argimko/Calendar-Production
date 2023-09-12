@@ -43,13 +43,13 @@ button {
 /* Настройки */
 #settings {
    display: flex;
-   font-size: 13px;
+   font-size: 14.5px;
    flex-direction: column;
    gap: 20px;
    position: fixed;
    inset: 10px auto auto 10px;
    padding: 17px 20px;
-   width: 250px;
+   width: 290px;
    border-radius: 5px;
    background: rgb(230 230 230);
 }
@@ -57,11 +57,19 @@ button {
    font-weight: 500;
    margin: 0;
 }
+#settings > div {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+#settings > div > :last-child {
+   width: 53%;
+}
 #settings button {
-   font-size: 20px;
-   font-weight: 600;
+   font-size: 17px;
    align-self: center;
-   padding: 5px 50px;
+   margin-top: 15px;
+   padding: 9px 50px;
 }
 
 /* Уведомления */
@@ -163,7 +171,7 @@ button {
    flex-grow: 0;
 }
 .vanilla-calendar-week-numbers .vanilla-calendar-week-numbers__content {
-   border: 0.03rem hidden rgb(0 0 0 / 7%);
+   border: 0.03rem hidden rgb(229 229 229);
 }
 .vanilla-calendar-week-numbers:first-of-type .vanilla-calendar-week-numbers__content {
    border-right-style: solid;

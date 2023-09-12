@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('bgButton').addEventListener('change', event => {
-        document.getElementById('calendar').style.setProperty('--bg', `url('./background/${event.target.files[0].name}')`);
-    });
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     document.getElementById('bgButton').addEventListener('change', event => {
+//         document.getElementById('calendar').style.setProperty('--bg', `url('./background/${event.target.files[0].name}')`);
+//     });
+// });
 
 const { createApp, ref } = Vue;
 
@@ -15,8 +15,9 @@ const vm = createApp({
       ]);
       
       const pageSize = ref(sizes.value[0].value);
+      const loading = ref(false);
 
-      return { pageSize, sizes };
+      return { pageSize, sizes, loading };
    },
 
    mounted() {
@@ -36,8 +37,19 @@ const vm = createApp({
    
    components: {
       'p-button': primevue.button,
-      'p-dropdown': primevue.dropdown
+      'p-dropdown': primevue.dropdown,
+      'p-fileupload': primevue.fileupload
+   },
+
+   methods: {
+      printPage() {
+         this.loading = true;
+         setTimeout(() => {
+            this.loading = false;
+            queueMicrotask(window.print);
+         }, 500);
+      }
    }
 })
-.use(primevue.config.default, { ripple: true })
+.use(primevue.config.default, { ripple: true })  // https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html
 .mount('#app');
