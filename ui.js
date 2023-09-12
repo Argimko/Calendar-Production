@@ -21,6 +21,13 @@ const vm = createApp({
       const cutoff = Number(localStorage['cutoff']);
       if (!isNaN(cutoff)) 
          this.cutoff = cutoff;
+
+      // IndexedDB:
+      //    https://learn.javascript.ru/indexeddb
+      //    https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
+      indexedDB.open('calendar').onsuccess = event =>
+         event.target.result.transaction(['files']).objectStore('files').get('bg').onsuccess = event =>
+            document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(event.target.result)})`);
    },
    
    watch: {
@@ -55,9 +62,17 @@ const vm = createApp({
             style.setProperty('--bg', `url(${event.files[0].objectURL})`);
             let label = event.originalEvent.target.previousSibling;
             queueMicrotask(() => label.textContent = 'Очистить');
+
+            const request = indexedDB.open('calendar');
+            request.onupgradeneeded = () => request.result.createObjectStore('files');
+            request.onsuccess = () =>
+               request.result.transaction(['files'], 'readwrite').objectStore('files').put(event.files[0], 'bg');
          }
          else {
             style.removeProperty('--bg');
+
+            indexedDB.open('calendar').onsuccess = event =>
+               event.target.result.transaction(['files'], 'readwrite').objectStore('files').delete('bg');
          }
       },
    },
