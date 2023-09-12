@@ -25,9 +25,13 @@ const vm = createApp({
       // IndexedDB:
       //    https://learn.javascript.ru/indexeddb
       //    https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
-      indexedDB.open('calendar').onsuccess = event =>
-         event.target.result.transaction(['files']).objectStore('files').get('bg').onsuccess = event =>
-            document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(event.target.result)})`);
+      const request = indexedDB.open('calendar');
+      request.onupgradeneeded = ({target: {result: db}}) => db.createObjectStore('files');
+      request.onsuccess = ({target: {result: db}}) => {
+         this.db = db;
+         db.transaction('files').objectStore('files').get('bg').onsuccess = ({target: {result: file}}) =>
+            file && document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(file)})`);
+      }
    },
    
    watch: {
@@ -56,23 +60,18 @@ const vm = createApp({
          }, 500);
       },
       bgSelected(event) {
-         let style = document.getElementById('calendar').style;
+         const style = document.getElementById('calendar').style;
+         const store = this.db.transaction('files', 'readwrite').objectStore('files');
 
          if (event) {
             style.setProperty('--bg', `url(${event.files[0].objectURL})`);
             let label = event.originalEvent.target.previousSibling;
             queueMicrotask(() => label.textContent = 'Очистить');
-
-            const request = indexedDB.open('calendar');
-            request.onupgradeneeded = () => request.result.createObjectStore('files');
-            request.onsuccess = () =>
-               request.result.transaction(['files'], 'readwrite').objectStore('files').put(event.files[0], 'bg');
+            store.put(event.files[0], 'bg');
          }
          else {
             style.removeProperty('--bg');
-
-            indexedDB.open('calendar').onsuccess = event =>
-               event.target.result.transaction(['files'], 'readwrite').objectStore('files').delete('bg');
+            store.delete('bg');
          }
       },
    },
