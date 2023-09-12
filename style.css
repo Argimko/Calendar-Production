@@ -12,6 +12,7 @@
    position: fixed;
    inset: auto 0.5rem 0.1rem;
    display: flex;
+   font-size: 3rem;
    justify-content: space-between;
    color: rgb(197 156 101);
    z-index: -1;
@@ -65,7 +66,19 @@ button {
 #settings > div > :last-child {
    width: 53%;
 }
-#settings button {
+#settings .p-fileupload-basic .p-fileupload-choose {
+   width: 100%;
+}
+#settings .p-fileupload-basic .p-fileupload-choose-selected .p-button-icon {
+   rotate: 45deg;
+}
+#settings .p-button-label {
+   transition: none;
+}
+#settings .p-inputtext {
+   width: 100%;
+}
+#settings > button {
    font-size: 17px;
    align-self: center;
    margin-top: 15px;

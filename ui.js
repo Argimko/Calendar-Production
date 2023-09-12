@@ -1,9 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     document.getElementById('bgButton').addEventListener('change', event => {
-//         document.getElementById('calendar').style.setProperty('--bg', `url('./background/${event.target.files[0].name}')`);
-//     });
-// });
-
 const { createApp, ref } = Vue;
 
 const vm = createApp({
@@ -16,19 +10,23 @@ const vm = createApp({
       
       const pageSize = ref(sizes.value[0].value);
       const loading = ref(false);
+      const cutoff = ref(2);
 
-      return { pageSize, sizes, loading };
+      return { pageSize, sizes, loading, cutoff };
    },
 
    mounted() {
-      // Check if the selectedWidth is saved in local storage and use it if available
-      const pageSize = localStorage.getItem('pageSize');
-      if (pageSize) {
-         this.pageSize = JSON.parse(pageSize);
-      }
+      try { this.pageSize = JSON.parse(localStorage['pageSize']) } finally { }
+
+      const cutoff = Number(localStorage['cutoff']);
+      if (!isNaN(cutoff)) 
+         this.cutoff = cutoff;
    },
    
    watch: {
+      cutoff(value) {
+         localStorage['cutoff'] = value;
+      },
       pageSize(value) {
          document.getElementById('pageSize').textContent = `@page { size: ${value[0]}cm ${value[1]}cm }`;
          localStorage['pageSize'] = JSON.stringify(value);
@@ -38,7 +36,8 @@ const vm = createApp({
    components: {
       'p-button': primevue.button,
       'p-dropdown': primevue.dropdown,
-      'p-fileupload': primevue.fileupload
+      'p-fileupload': primevue.fileupload,
+      'p-inputnumber': primevue.inputnumber,
    },
 
    methods: {
@@ -48,8 +47,24 @@ const vm = createApp({
             this.loading = false;
             queueMicrotask(window.print);
          }, 500);
-      }
-   }
+      },
+      bgSelected(event) {
+         let style = document.getElementById('calendar').style;
+
+         if (event) {
+            style.setProperty('--bg', `url(${event.files[0].objectURL})`);
+            let label = event.originalEvent.target.previousSibling;
+            queueMicrotask(() => label.textContent = 'Очистить');
+         }
+         else {
+            style.removeProperty('--bg');
+         }
+      },
+   },
 })
 .use(primevue.config.default, { ripple: true })  // https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html
 .mount('#app');
+
+// Locale: 
+//    https://primevue.org/configuration/#locale
+//    https://unpkg.com/primelocale/ru.json
