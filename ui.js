@@ -26,11 +26,23 @@ const vm = createApp({
       //    https://learn.javascript.ru/indexeddb
       //    https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
       const request = indexedDB.open('calendar');
-      request.onupgradeneeded = ({target: {result: db}}) => db.createObjectStore('files');
+      const storeName = 'files';
+      request.onupgradeneeded = ({target: {result: db}}) => db.createObjectStore(storeName);
       request.onsuccess = ({target: {result: db}}) => {
-         this.db = db;
-         db.transaction('files').objectStore('files').get('bg').onsuccess = ({target: {result: file}}) =>
-            file && document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(file)})`);
+         if (db.objectStoreNames.contains(storeName)) {
+            const store = mode => db.transaction(storeName, mode).objectStore(storeName);
+
+            this.db = {
+               putItem: (key, value) => store('readwrite').put(value, key),
+               deleteItem: (key) => store('readwrite').delete(key)
+            }
+
+            store().get('bg').onsuccess = ({target: {result: file}}) =>
+               file && document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(file)})`);
+         }
+         else {
+            indexedDB.deleteDatabase(db.name);
+         }
       }
    },
    
@@ -61,17 +73,16 @@ const vm = createApp({
       },
       bgSelected(event) {
          const style = document.getElementById('calendar').style;
-         const store = this.db.transaction('files', 'readwrite').objectStore('files');
 
          if (event) {
             style.setProperty('--bg', `url(${event.files[0].objectURL})`);
             let label = event.originalEvent.target.previousSibling;
             queueMicrotask(() => label.textContent = 'Очистить');
-            store.put(event.files[0], 'bg');
+            this.db?.putItem('bg', event.files[0]);
          }
          else {
             style.removeProperty('--bg');
-            store.delete('bg');
+            this.db?.deleteItem('bg');
          }
       },
    },
