@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       yearsText += `-${endDate.getFullYear()}`;
 
    document.getElementById('calendar_preview_year').dataset.year = yearsText;
+   document.getElementById('header_year').textContent = yearsText;
    document.title += ` – ${yearsText} год`;
 
    startDate = new Date(calendar.selectedYear, calendar.selectedMonth);

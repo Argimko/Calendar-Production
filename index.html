@@ -24,6 +24,7 @@
       <script src="https://unpkg.com/primevue@3/button/button.min.js" defer></script>
       <script src="https://unpkg.com/primevue@3/fileupload/fileupload.min.js" defer></script>
       <script src="https://unpkg.com/primevue@3/inputnumber/inputnumber.min.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/inputswitch/inputswitch.min.js" defer></script>
 
       <!-- User CSS, JS -->
       <link href="./style.css" rel="stylesheet">
@@ -35,30 +36,43 @@
    </head>
    
    <body id="app" v-cloak>
-      <div id="calendar"></div>
+      <div :class="{ 'outside-days-disabled': !daysOutside }">
+         <div id="calendar"></div>
+      </div>
       <div id="calendar_preview_year"></div>
-      <div id="settings">
-         <h2>Настройки</h2>
-         
-         <div>
-            <label>Фон</label>
-            <div>
-               <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
-               <p-button icon="pi pi-times" severity="secondary" @click="bgClear"></p-button>
-            </div>
-         </div>
+      <div id="sidebar">
+         <h1>Производственный календарь РФ<br>(конструктор на <span id="header_year"></span> год)</h1>
 
-         <div>
-            <label>Размер бумаги</label>
-            <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
+         <div id="settings">
+            <h2>Настройки</h2>
+            
+            <div>
+               <label>Фон</label>
+               <div>
+                  <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
+                  <p-button icon="pi pi-times" severity="secondary" @click="bgClear"></p-button>
+               </div>
+            </div>
+
+            <div>
+               <label>Размер бумаги</label>
+               <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
+            </div>
+            
+            <div>
+               <label>В обрез</label>
+               <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
+            </div>
+
+            <div>
+               <label>Смежные месяцы</label>
+               <div>
+                  <p-inputswitch v-model="daysOutside"></p-inputswitch>
+               </div>
+            </div>
+            
+            <p-button label="Печать" icon="pi pi-print" :loading="loading" @click="printPage"></p-button>
          </div>
-         
-         <div>
-            <label>В обрез</label>
-            <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
-         </div>
-         
-         <p-button label="Печать" icon="pi pi-print" :loading="loading" @click="printPage"></p-button>
       </div>
 
       <div id="toast">

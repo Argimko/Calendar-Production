@@ -11,8 +11,9 @@ const vm = createApp({
       const pageSize = ref(sizes.value[0].value);
       const loading = ref(false);
       const cutoff = ref(2);
+      const daysOutside = ref(true);
 
-      return { pageSize, sizes, loading, cutoff };
+      return { pageSize, sizes, loading, cutoff, daysOutside };
    },
 
    mounted() {
@@ -21,6 +22,8 @@ const vm = createApp({
       const cutoff = Number(localStorage['cutoff']);
       if (!isNaN(cutoff)) 
          this.cutoff = cutoff;
+
+      this.daysOutside = localStorage['daysOutside'] != 'false';
 
       // IndexedDB:
       //    https://learn.javascript.ru/indexeddb
@@ -53,6 +56,9 @@ const vm = createApp({
       pageSize(value) {
          document.getElementById('pageSize').textContent = `@page { size: ${value[0]}cm ${value[1]}cm }`;
          localStorage['pageSize'] = JSON.stringify(value);
+      },
+      daysOutside(value) {
+         localStorage['daysOutside'] = value;
       }
    },
    
@@ -61,6 +67,7 @@ const vm = createApp({
       'p-dropdown': primevue.dropdown,
       'p-fileupload': primevue.fileupload,
       'p-inputnumber': primevue.inputnumber,
+      'p-inputswitch': primevue.inputswitch,
    },
 
    methods: {

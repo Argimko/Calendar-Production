@@ -8,6 +8,10 @@
 [v-cloak] {
    display: none;
 }
+h1 {
+   font-weight: normal;
+   margin: 1rem 0.7rem 2.5rem;
+}
 #calendar_preview_year {
    position: fixed;
    inset: auto 0.5rem 0.1rem;
@@ -41,16 +45,18 @@ button {
    grid-auto-flow: row;
 }
 
-/* Настройки */
+/* Панель слева, настройки */
+#sidebar {
+   position: fixed;
+   inset: 10px auto auto 10px;
+}
 #settings {
    display: flex;
    font-size: 14.5px;
    flex-direction: column;
    gap: 20px;
-   position: fixed;
-   inset: 10px auto auto 10px;
    padding: 17px 20px;
-   width: 290px;
+   width: 330px;
    border-radius: 5px;
    background: rgb(230 230 230);
 }
@@ -74,8 +80,6 @@ button {
    flex-grow: 1;
 }
 #settings .p-fileupload-basic:has(+ .p-button-icon-only) .p-button {
-   padding-left: 0.5rem;
-   padding-right: 0.5rem;
    border-top-right-radius: 0;
    border-bottom-right-radius: 0;
    width: 100%;
@@ -179,6 +183,9 @@ button {
 }
 
 /* Дни прошлого и следующего месяца */
+.outside-days-disabled :is(.vanilla-calendar-day__btn_prev, .vanilla-calendar-day__btn_next) {
+   display: none;
+}
 .vanilla-calendar-day__btn_prev, .vanilla-calendar-day__btn_next {
    color: rgb(210 210 210);
    font-weight: 100;
@@ -226,7 +233,7 @@ button {
       /*left: -80px;*/
       /*right: -100px;*/
    }
-   #calendar_preview_year, #toast, #settings {
+   #sidebar, #calendar_preview_year, #toast {
       display: none;
    }
 }
