@@ -64,16 +64,29 @@ button {
    justify-content: space-between;
 }
 #settings > div > :last-child {
+   display: flex;
    width: 53%;
 }
-#settings .p-fileupload-basic .p-fileupload-choose {
+#settings .p-button:focus {
+   z-index: 1;
+}
+#settings .p-fileupload-basic {
+   flex-grow: 1;
+}
+#settings .p-fileupload-basic:has(+ .p-button-icon-only) .p-button {
+   padding-left: 0.5rem;
+   padding-right: 0.5rem;
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
    width: 100%;
 }
-#settings .p-fileupload-basic .p-fileupload-choose-selected .p-button-icon {
-   rotate: 45deg;
+#settings .p-fileupload-basic .p-icon {
+   display: none;
 }
-#settings .p-button-label {
-   transition: none;
+#settings .p-fileupload-basic + .p-button-icon-only {
+   border-top-left-radius: 0;
+   border-bottom-left-radius: 0;
+   margin-left: 1px;
 }
 #settings .p-inputtext {
    width: 100%;
@@ -209,6 +222,9 @@ button {
       outline: none;
       width: 100vw;
       height: 100vh;
+      /*position: relative;*/
+      /*left: -80px;*/
+      /*right: -100px;*/
    }
    #calendar_preview_year, #toast, #settings {
       display: none;

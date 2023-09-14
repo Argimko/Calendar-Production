@@ -71,20 +71,14 @@ const vm = createApp({
             queueMicrotask(window.print);
          }, 500);
       },
-      bgSelected(event) {
-         const style = document.getElementById('calendar').style;
-
-         if (event) {
-            style.setProperty('--bg', `url(${event.files[0].objectURL})`);
-            let label = event.originalEvent.target.previousSibling;
-            queueMicrotask(() => label.textContent = 'Очистить');
-            this.db?.putItem('bg', event.files[0]);
-         }
-         else {
-            style.removeProperty('--bg');
-            this.db?.deleteItem('bg');
-         }
+      bgSelect(event) {
+         document.getElementById('calendar').style.setProperty('--bg', `url(${event.files[0].objectURL})`);
+         this.db?.putItem('bg', event.files[0]);
       },
+      bgClear() {
+         document.getElementById('calendar').style.removeProperty('--bg');
+         this.db?.deleteItem('bg');
+      }
    },
 })
 .use(primevue.config.default, { ripple: true })  // https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html

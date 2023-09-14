@@ -42,7 +42,10 @@
          
          <div>
             <label>Фон</label>
-            <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" @select="bgSelected" @clear="bgSelected"></p-fileupload>
+            <div>
+               <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
+               <p-button icon="pi pi-times" severity="secondary" @click="bgClear"></p-button>
+            </div>
          </div>
 
          <div>
