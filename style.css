@@ -10,11 +10,15 @@
 }
 h1 {
    font-weight: normal;
-   margin: 1rem 0.7rem 2.5rem;
+   padding: 1rem 0.7rem;
+   margin: 0 0 1.5rem;
+   border-bottom-right-radius: 5px;
+   background: rgb(255 255 255 / 80%);
+   backdrop-filter: blur(3px);
 }
 #calendar_preview_year {
    position: fixed;
-   inset: auto 0.5rem 0.1rem;
+   inset: auto 1rem 0.1rem;
    display: flex;
    font-size: 3rem;
    justify-content: space-between;
@@ -48,17 +52,25 @@ button {
 /* Панель слева, настройки */
 #sidebar {
    position: fixed;
-   inset: 10px auto auto 10px;
+   inset: 0 auto auto 10px;
+}
+#sidebar .warning {
+   background: rgb(251 192 45);
+   padding-left: 13px;
+   padding-right: 13px;
+   border-radius: 6px;
+   padding-bottom: 3px;
 }
 #settings {
    display: flex;
    font-size: 14.5px;
    flex-direction: column;
    gap: 20px;
-   padding: 17px 20px;
+   padding: 17px 20px 23px;
    width: 330px;
    border-radius: 5px;
-   background: rgb(230 230 230);
+   background: rgb(233 233 233 / 70%);
+   backdrop-filter: blur(3px);
 }
 #settings h2 {
    font-weight: 500;
@@ -122,10 +134,12 @@ button {
    text-decoration-skip-ink: none;
 }
 #toast .info {
-   background: #def2fd;
+   background: rgb(215 241 255 / 70%);
+   backdrop-filter: blur(3px);
 }
 #toast .warn {
-   background: #ffebd9;
+   background: rgb(251 226 204 / 70%);
+   backdrop-filter: blur(3px);
 }
 
 /* Ширина календаря */
@@ -197,6 +211,9 @@ button {
 }
 
 /* Номера недели */
+.week-numbers-disabled .vanilla-calendar-week-numbers {
+   display: none;
+}
 .vanilla-calendar-week-numbers__title {
    visibility: hidden;
 }

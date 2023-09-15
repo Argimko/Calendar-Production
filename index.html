@@ -36,12 +36,12 @@
    </head>
    
    <body id="app" v-cloak>
-      <div :class="{ 'outside-days-disabled': !daysOutside }">
+      <div :class="{ 'outside-days-disabled': !daysOutside, 'week-numbers-disabled': !weekNumbers }" :style="{ '--bg': bgUrl }">
          <div id="calendar"></div>
       </div>
       <div id="calendar_preview_year"></div>
       <div id="sidebar">
-         <h1>Производственный календарь РФ<br>(конструктор на <span id="header_year"></span> год)</h1>
+         <h1>Производственный календарь РФ<br>(конструктор на <span id="header_year">2024</span> год)</h1>
 
          <div id="settings">
             <h2>Настройки</h2>
@@ -50,7 +50,7 @@
                <label>Фон</label>
                <div>
                   <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
-                  <p-button icon="pi pi-times" severity="secondary" @click="bgClear"></p-button>
+                  <p-button icon="pi pi-times" severity="secondary" :disabled="!bg" @click="bgClear"></p-button>
                </div>
             </div>
 
@@ -62,6 +62,13 @@
             <div>
                <label>В обрез</label>
                <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
+            </div>
+
+            <div>
+               <label>Номера недели</label>
+               <div>
+                  <p-inputswitch v-model="weekNumbers"></p-inputswitch>
+               </div>
             </div>
 
             <div>

@@ -12,8 +12,10 @@ const vm = createApp({
       const loading = ref(false);
       const cutoff = ref(2);
       const daysOutside = ref(true);
+      const weekNumbers = ref(true);
+      const bg = ref(null);
 
-      return { pageSize, sizes, loading, cutoff, daysOutside };
+      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, bg };
    },
 
    mounted() {
@@ -24,6 +26,7 @@ const vm = createApp({
          this.cutoff = cutoff;
 
       this.daysOutside = localStorage['daysOutside'] != 'false';
+      this.weekNumbers = localStorage['weekNumbers'] != 'false';
 
       // IndexedDB:
       //    https://learn.javascript.ru/indexeddb
@@ -41,7 +44,7 @@ const vm = createApp({
             }
 
             store().get('bg').onsuccess = ({target: {result: file}}) =>
-               file && document.getElementById('calendar').style.setProperty('--bg', `url(${URL.createObjectURL(file)})`);
+               file && (this.bg = URL.createObjectURL(file));
          }
          else {
             indexedDB.deleteDatabase(db.name);
@@ -59,15 +62,16 @@ const vm = createApp({
       },
       daysOutside(value) {
          localStorage['daysOutside'] = value;
+      },
+      weekNumbers(value) {
+         localStorage['weekNumbers'] = value;
       }
    },
-   
-   components: {
-      'p-button': primevue.button,
-      'p-dropdown': primevue.dropdown,
-      'p-fileupload': primevue.fileupload,
-      'p-inputnumber': primevue.inputnumber,
-      'p-inputswitch': primevue.inputswitch,
+
+   computed: {
+      bgUrl() {
+         return this.bg && `url(${this.bg})`;
+      }
    },
 
    methods: {
@@ -79,18 +83,25 @@ const vm = createApp({
          }, 500);
       },
       bgSelect(event) {
-         document.getElementById('calendar').style.setProperty('--bg', `url(${event.files[0].objectURL})`);
+         this.bg = event.files[0].objectURL;
          this.db?.putItem('bg', event.files[0]);
       },
       bgClear() {
-         document.getElementById('calendar').style.removeProperty('--bg');
+         this.bg = null;
          this.db?.deleteItem('bg');
       }
    },
-})
-.use(primevue.config.default, { ripple: true })  // https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html
-.mount('#app');
 
-// Locale: 
-//    https://primevue.org/configuration/#locale
-//    https://unpkg.com/primelocale/ru.json
+   components: {
+      'p-button': primevue.button,
+      'p-dropdown': primevue.dropdown,
+      'p-fileupload': primevue.fileupload,
+      'p-inputnumber': primevue.inputnumber,
+      'p-inputswitch': primevue.inputswitch,
+   }
+});
+
+// Locale - https://primevue.org/configuration/#locale - https://unpkg.com/primelocale/ru.json
+// Single HTML - https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html
+vm.use(primevue.config.default, { ripple: true })
+vm.mount('#app');

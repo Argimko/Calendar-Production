@@ -56,8 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
       yearsText += `-${endDate.getFullYear()}`;
 
    document.getElementById('calendar_preview_year').dataset.year = yearsText;
-   document.getElementById('header_year').textContent = yearsText;
    document.title += ` – ${yearsText} год`;
+   let header_year = document.getElementById('header_year');
+   if (header_year.textContent != yearsText) {
+      header_year.textContent = yearsText;
+      header_year.classList.add('warning');
+      header_year.title = 'Значение #header_year в HTML должено быть установлено на текущий год';
+   }
 
    startDate = new Date(calendar.selectedYear, calendar.selectedMonth);
    let displayHolidaysCount = calendar.selectedHolidays.filter(d => {
