@@ -107,6 +107,10 @@ button {
 #settings .p-inputtext {
    width: 100%;
 }
+#settings .p-button-icon-left::before {
+   display: inline-block;
+   width: 1rem;
+}
 #settings > button {
    font-size: 17px;
    align-self: center;
