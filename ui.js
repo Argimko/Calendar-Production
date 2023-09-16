@@ -3,9 +3,7 @@ const { createApp, ref } = Vue;
 const vm = createApp({
    setup() {
       const sizes = ref([
-         { label: 'A4', value: [ 29.7, 21 ] },
-         { label: '20 x 10 см', value: [ 20, 10 ] },
-         { label: '36 x 24 см', value: [ 36, 24 ] },
+         { label: '29.7 x 14 см', value: [ 29.7, 14 ] },
       ]);
       
       const pageSize = ref(sizes.value[0].value);
@@ -13,17 +11,22 @@ const vm = createApp({
       const cutoff = ref(2);
       const daysOutside = ref(true);
       const weekNumbers = ref(true);
+      const fontSize = ref(36);
       const bg = ref(null);
 
-      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, bg };
+      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, fontSize, bg };
    },
 
    mounted() {
       try { this.pageSize = JSON.parse(localStorage['pageSize']) } finally { }
 
-      const cutoff = Number(localStorage['cutoff']);
+      let cutoff = Number(localStorage['cutoff']);
       if (!isNaN(cutoff)) 
          this.cutoff = cutoff;
+
+      let fontSize = Number(localStorage['fontSize']);
+      if (!isNaN(fontSize)) 
+         this.fontSize = fontSize;
 
       this.daysOutside = localStorage['daysOutside'] != 'false';
       this.weekNumbers = localStorage['weekNumbers'] != 'false';
@@ -63,6 +66,9 @@ const vm = createApp({
       daysOutside(value) {
          localStorage['daysOutside'] = value;
       },
+      fontSize(value) {
+         localStorage['fontSize'] = value;
+      },
       weekNumbers(value) {
          localStorage['weekNumbers'] = value;
       }
@@ -89,6 +95,9 @@ const vm = createApp({
       bgClear() {
          this.bg = null;
          this.db?.deleteItem('bg');
+      },
+      t(event) {
+         
       }
    },
 

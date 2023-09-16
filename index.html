@@ -37,7 +37,8 @@
    </head>
    
    <body id="app" v-cloak>
-      <div :class="{ 'outside-days-disabled': !daysOutside, 'week-numbers-disabled': !weekNumbers }" :style="{ '--bg': bgUrl }">
+      <div :class="{ 'outside-days-disabled': !daysOutside, 'week-numbers-disabled': !weekNumbers }"
+           :style="{ '--bg': bgUrl, '--font-size': fontSize+'pt', '--page-width': pageSize[0]+'cm', '--page-height': pageSize[1]+'cm' }">
          <div id="calendar"></div>
       </div>
       <div id="calendar_preview_year"></div>
@@ -63,6 +64,11 @@
             <div>
                <label>В обрез</label>
                <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
+            </div>
+
+            <div>
+               <label>Размер шрифта</label>
+               <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="0" :max="100" :allow-empty="false"></p-inputnumber>
             </div>
 
             <div>
