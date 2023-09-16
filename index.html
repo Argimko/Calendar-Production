@@ -38,7 +38,7 @@
    
    <body id="app" v-cloak>
       <div :class="{ 'outside-days-disabled': !daysOutside, 'week-numbers-disabled': !weekNumbers }"
-           :style="{ '--bg': bgUrl, '--font-size': fontSize+'pt', '--page-width': pageSize[0]+'cm', '--page-height': pageSize[1]+'cm' }">
+           :style="{ 'font-size': fontSize+'pt', '--bg': bgUrl, '--page-width': pageSize[0]+'cm', '--page-height': pageSize[1]+'cm' }">
          <div id="calendar"></div>
       </div>
       <div id="calendar_preview_year"></div>

@@ -162,12 +162,12 @@ button {
 /* Месяц, Год */
 .vanilla-calendar-header {
    padding: 0;
-   margin-top: calc(var(--font-size) * 1.2);
-   margin-bottom: calc(var(--font-size) / 2);
+   margin-top: 0.95em;
+   margin-bottom: 0.5em;
 }
 .vanilla-calendar-month, .vanilla-calendar-year {
-   font-size: calc(var(--font-size) * 0.75);
-   font-weight: 100;
+   font-size: 0.75em;
+   font-weight: normal;
    line-height: 1;
    padding: 0;
 }
@@ -178,13 +178,20 @@ button {
 /* Расстояние между строк */
 .vanilla-calendar-week-numbers__content,
 .vanilla-calendar-days {
-   row-gap: calc(var(--font-size) / 3);
+   row-gap: 0.33em;
 }
 
 /* Название дней недели: пн, вт, ср, ... */
+.vanilla-calendar-week,
+.vanilla-calendar-week-numbers__title {
+   font-size: 0.5em;
+   margin-bottom: 0.7em; 
+}
+.vanilla-calendar-week__day {
+   font-size: 1em;
+}
 .vanilla-calendar-week__day,
 .vanilla-calendar-week-numbers__title {
-   font-size: calc(var(--font-size) * 0.5);
    font-weight: normal;
    text-transform: lowercase;
    line-height: 1;
@@ -193,7 +200,7 @@ button {
 
 /* Дни месяца */
 .vanilla-calendar-day__btn {
-   font-size: var(--font-size);
+   font-size: 1em;
    font-weight: 700;
    line-height: 1;
    padding: 0;
@@ -235,8 +242,8 @@ button {
    flex-grow: 0;
 }
 .vanilla-calendar-week-numbers .vanilla-calendar-week-numbers__content {
-   padding: 0 calc(var(--font-size) / 3);
-   border: calc(var(--font-size) / 30) hidden rgb(179 179 179);
+   padding: 0 0.33em;
+   border: 0.03em hidden rgb(179 179 179);
 }
 .vanilla-calendar-week-numbers:first-of-type .vanilla-calendar-week-numbers__content {
    border-right-style: solid;
@@ -245,9 +252,9 @@ button {
    border-left-style: solid;
 }
 .vanilla-calendar-week-number {
-   font: 300 calc(var(--font-size) / 2)/2.5 math, serif;
+   font: 300 0.5em/2.5 math, serif;
    align-items: baseline;
-   height: var(--font-size);
+   height: 2em;
    color: rgb(135 135 135);
    cursor: default;
 }
