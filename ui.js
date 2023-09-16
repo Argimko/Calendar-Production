@@ -6,31 +6,24 @@ const vm = createApp({
          { label: '29.7 x 14 см', value: [ 29.7, 14 ] },
       ]);
       
+      const cutoff = ref(Number(localStorage['cutoff']));
+      if (isNaN(cutoff.value)) 
+         cutoff.value = 2;
+      
       const pageSize = ref(sizes.value[0].value);
-      const loading = ref(false);
-      const cutoff = ref(2);
-      const daysOutside = ref(true);
-      const weekNumbers = ref(true);
-      const fontSize = ref(36);
-      const bg = ref(null);
+      try { pageSize.value = JSON.parse(localStorage['pageSize']) } catch { /* pass */ }
 
-      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, fontSize, bg };
+      const loading = ref(false);
+      const daysOutside = ref(localStorage['daysOutside'] != 'false');
+      const weekNumbers = ref(localStorage['weekNumbers'] != 'false');
+      const yearNumber = ref(localStorage['yearNumber'] == 'true');
+      const fontSize = ref(Number(localStorage['fontSize']) || 36);
+      const bg = ref();
+
+      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, yearNumber, fontSize, bg };
    },
 
    mounted() {
-      try { this.pageSize = JSON.parse(localStorage['pageSize']) } finally { }
-
-      let cutoff = Number(localStorage['cutoff']);
-      if (!isNaN(cutoff)) 
-         this.cutoff = cutoff;
-
-      let fontSize = Number(localStorage['fontSize']);
-      if (!isNaN(fontSize)) 
-         this.fontSize = fontSize;
-
-      this.daysOutside = localStorage['daysOutside'] != 'false';
-      this.weekNumbers = localStorage['weekNumbers'] != 'false';
-
       // IndexedDB:
       //    https://learn.javascript.ru/indexeddb
       //    https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
@@ -56,22 +49,15 @@ const vm = createApp({
    },
    
    watch: {
-      cutoff(value) {
-         localStorage['cutoff'] = value;
-      },
+      cutoff      : value => localStorage['cutoff'] = value,
+      daysOutside : value => localStorage['daysOutside'] = value,
+      fontSize    : value => localStorage['fontSize'] = value,
+      weekNumbers : value => localStorage['weekNumbers'] = value,
+      yearNumber  : value => localStorage['yearNumber'] = value,
       pageSize(value) {
          document.getElementById('pageSize').textContent = `@page { size: ${value[0]}cm ${value[1]}cm }`;
          localStorage['pageSize'] = JSON.stringify(value);
       },
-      daysOutside(value) {
-         localStorage['daysOutside'] = value;
-      },
-      fontSize(value) {
-         localStorage['fontSize'] = value;
-      },
-      weekNumbers(value) {
-         localStorage['weekNumbers'] = value;
-      }
    },
 
    computed: {
