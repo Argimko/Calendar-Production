@@ -59,11 +59,13 @@
                <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
             </div>
             <label>В обрез
-               <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
+               <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false" highlight-on-focus
+                              @input="updateModel" @mousedown="selectAll"></p-inputnumber>
             </label>
 
             <label>Размер шрифта
-               <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="0" :max="100" :allow-empty="false"></p-inputnumber>
+               <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="10" :max="100" :allow-empty="false" highlight-on-focus
+                              @input="updateModel" @mousedown="selectAll"></p-inputnumber>
             </label>
 
             <label>Номер года

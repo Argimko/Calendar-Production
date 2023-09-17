@@ -92,6 +92,19 @@ const vm = createApp({
       openDropdown(event) {
          event.target.firstElementChild.click();
       },
+      updateModel(event) {
+         if (event.originalEvent instanceof KeyboardEvent) {
+            const target = event.originalEvent.target;
+            const proxy = target.parentNode.__vnode.ctx.proxy;
+
+            if (event.value == proxy.validateValue(event.value))
+               proxy.onInputKeyDown({ code: 'Enter', target: target });
+         }
+      },
+      selectAll(event) {
+         if (event.target instanceof HTMLInputElement && event.detail == 2)
+            event.target.select();
+      },
    },
 
    components: {

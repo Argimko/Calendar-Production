@@ -72,6 +72,7 @@ button {
    border-radius: 5px;
    background: rgb(233 233 233 / 70%);
    backdrop-filter: blur(3px);
+   user-select: none;
 }
 #settings h2 {
    font-size: 1.2rem;
