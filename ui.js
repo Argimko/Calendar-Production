@@ -13,17 +13,20 @@ const vm = createApp({
       const pageSize = ref(sizes.value[0].value);
       try { pageSize.value = JSON.parse(localStorage['pageSize']) } catch { /* pass */ }
 
-      const loading = ref(false);
+      const printLoading = ref(false);
       const daysOutside = ref(localStorage['daysOutside'] != 'false');
       const weekNumbers = ref(localStorage['weekNumbers'] != 'false');
       const yearNumber = ref(localStorage['yearNumber'] == 'true');
-      const fontSize = ref(Number(localStorage['fontSize']) || 36);
+      const fontSize = ref(Number(localStorage['fontSize']));
       const bg = ref();
 
-      return { pageSize, sizes, loading, cutoff, daysOutside, weekNumbers, yearNumber, fontSize, bg };
+      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, yearNumber, fontSize, bg };
    },
 
    mounted() {
+      if (!this.fontSize)
+         this.updateFontSize();
+
       // IndexedDB:
       //    https://learn.javascript.ru/indexeddb
       //    https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
@@ -55,6 +58,7 @@ const vm = createApp({
       weekNumbers : value => localStorage['weekNumbers'] = value,
       yearNumber  : value => localStorage['yearNumber'] = value,
       pageSize(value) {
+         this.updateFontSize();
          document.getElementById('pageSize').textContent = `@page { size: ${value[0]}cm ${value[1]}cm }`;
          localStorage['pageSize'] = JSON.stringify(value);
       },
@@ -63,14 +67,14 @@ const vm = createApp({
    computed: {
       bgUrl() {
          return this.bg && `url(${this.bg})`;
-      }
+      },
    },
 
    methods: {
       printPage() {
-         this.loading = true;
+         this.printLoading = true;
          setTimeout(() => {
-            this.loading = false;
+            this.printLoading = false;
             queueMicrotask(window.print);
          }, 500);
       },
@@ -82,9 +86,12 @@ const vm = createApp({
          this.bg = null;
          this.db?.deleteItem('bg');
       },
-      t(event) {
-         
-      }
+      updateFontSize() {
+         this.fontSize = Math.floor(this.pageSize[1] * 2.6);
+      },
+      openDropdown(event) {
+         event.target.firstElementChild.click();
+      },
    },
 
    components: {
@@ -94,9 +101,9 @@ const vm = createApp({
       'p-inputnumber': primevue.inputnumber,
       'p-inputswitch': primevue.inputswitch,
    }
-});
-
-// Locale - https://primevue.org/configuration/#locale - https://unpkg.com/primelocale/ru.json
-// Single HTML - https://stackblitz.com/edit/web-platform-dwzmk2?file=index.html
-vm.use(primevue.config.default, { ripple: true })
-vm.mount('#app');
+})
+.use(primevue.config.default, { ripple: true, pt: {
+   inputnumber: { input: { name: 'none' } },
+   inputswitch: { hiddenInput: { name: 'none' } },
+}})
+.mount('#app');

@@ -15,6 +15,7 @@ h1 {
    border-bottom-right-radius: 5px;
    background: rgb(255 255 255 / 80%);
    backdrop-filter: blur(3px);
+   cursor: default;
 }
 #calendar_preview_year {
    position: fixed;
@@ -76,13 +77,29 @@ button {
    font-size: 1.2rem;
    font-weight: 500;
    margin: 0;
+   cursor: default;
 }
-#settings > div {
+#settings > :is(label, .label) {
+   cursor: default;
    display: flex;
    align-items: center;
    justify-content: space-between;
 }
-#settings > div > :last-child {
+#settings > .label:hover .p-dropdown:not(.p-disabled) {
+   border-color: #4CAF50;
+}
+#settings > label:hover .p-inputswitch:not(.p-disabled) .p-inputswitch-slider {
+   background: #b6bfc8;
+}
+#settings > label:hover .p-inputswitch.p-inputswitch-checked:not(.p-disabled) .p-inputswitch-slider {
+   background: #449e48;
+}
+#settings > label:hover .p-fileupload-choose:not(.p-disabled) {
+   background: #449e48;
+   border-color: #449e48;
+   color: #ffffff;
+}
+#settings > :is(label, .label) > :last-child {
    display: flex;
    width: 53%;
 }

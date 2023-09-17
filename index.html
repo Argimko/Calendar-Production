@@ -21,11 +21,11 @@
       <link href="https://unpkg.com/primeicons@6.0.1/fonts/primeicons.woff2" as="font" type="font/woff2" rel="preload" crossorigin>
       <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
       <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
-      <script src="https://unpkg.com/primevue@3/core/core.min.js" defer></script>
-      <script src="https://unpkg.com/primevue@3/button/button.min.js" defer></script>
-      <script src="https://unpkg.com/primevue@3/fileupload/fileupload.min.js" defer></script>
-      <script src="https://unpkg.com/primevue@3/inputnumber/inputnumber.min.js" defer></script>
-      <script src="https://unpkg.com/primevue@3/inputswitch/inputswitch.min.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/core/core.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/button/button.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/fileupload/fileupload.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/inputnumber/inputnumber.js" defer></script>
+      <script src="https://unpkg.com/primevue@3/inputswitch/inputswitch.js" defer></script>
 
       <!-- User CSS, JS -->
       <link href="./style.css" rel="stylesheet">
@@ -48,51 +48,43 @@
          <div id="settings">
             <h2>Настройки</h2>
             
-            <div>
-               <label>Фон</label>
+            <label>Фон
                <div>
                   <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
                   <p-button icon="pi pi-times" severity="secondary" :disabled="!bg" @click="bgClear"></p-button>
                </div>
-            </div>
+            </label>
 
-            <div>
-               <label>Размер бумаги</label>
+            <div class="label" @click.self="openDropdown">Размер бумаги
                <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
             </div>
-            
-            <div>
-               <label>В обрез</label>
+            <label>В обрез
                <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false"></p-inputnumber>
-            </div>
+            </label>
 
-            <div>
-               <label>Размер шрифта</label>
+            <label>Размер шрифта
                <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="0" :max="100" :allow-empty="false"></p-inputnumber>
-            </div>
+            </label>
 
-            <div>
-               <label>Номер года</label>
+            <label>Номер года
                <div>
-                  <p-inputswitch v-model="yearNumber"></p-inputswitch>
+                  <p-inputswitch v-model="yearNumber" @click.prevent></p-inputswitch>
                </div>
-            </div>
+            </label>
 
-            <div>
-               <label>Номера недели</label>
+            <label>Номера недели
                <div>
-                  <p-inputswitch v-model="weekNumbers"></p-inputswitch>
+                  <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
                </div>
-            </div>
+            </label>
 
-            <div>
-               <label>Смежные месяцы</label>
+            <label>Смежные месяцы
                <div>
-                  <p-inputswitch v-model="daysOutside"></p-inputswitch>
+                  <p-inputswitch v-model="daysOutside" @click.prevent></p-inputswitch>
                </div>
-            </div>
+            </label>
             
-            <p-button label="Печать" icon="pi pi-print" :loading="loading" @click="printPage"></p-button>
+            <p-button label="Печать" icon="pi pi-print" :loading="printLoading" @click="printPage"></p-button>
          </div>
       </div>
 
