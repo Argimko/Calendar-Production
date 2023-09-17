@@ -24,6 +24,7 @@ const vm = createApp({
    },
 
    mounted() {
+      this.updatePageSize();
       if (!this.fontSize)
          this.updateFontSize();
 
@@ -59,7 +60,7 @@ const vm = createApp({
       yearNumber  : value => localStorage['yearNumber'] = value,
       pageSize(value) {
          this.updateFontSize();
-         document.getElementById('pageSize').textContent = `@page { size: ${value[0]}cm ${value[1]}cm }`;
+         this.updatePageSize();
          localStorage['pageSize'] = JSON.stringify(value);
       },
    },
@@ -88,6 +89,9 @@ const vm = createApp({
       },
       updateFontSize() {
          this.fontSize = Math.floor(this.pageSize[1] * 2.6);
+      },
+      updatePageSize() {
+         document.getElementById('pageSize').textContent = `@page { size: ${this.pageSize[0]}cm ${this.pageSize[1]}cm }`;
       },
       openDropdown(event) {
          event.target.firstElementChild.click();
