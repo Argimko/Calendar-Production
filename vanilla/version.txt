@@ -1,3 +1,0 @@
-v2.6.1
-
-https://github.com/uvarov-frontend/vanilla-calendar
