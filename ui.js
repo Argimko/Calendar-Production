@@ -3,7 +3,7 @@ const { createApp, ref } = Vue;
 const vm = createApp({
    setup() {
       const sizes = ref([
-         { label: '29.7 x 14 см', value: [ 29.7, 14 ] },
+         { label: '29.7 x 14 см', value: [ 297, 140 ] },
       ]);
       
       const cutoff = ref(Number(localStorage['cutoff']));
@@ -66,9 +66,22 @@ const vm = createApp({
    },
 
    computed: {
-      bgUrl() {
-         return this.bg && `url(${this.bg})`;
+      classParams() {
+         return {
+            'outside-days-disabled' : !this.daysOutside,
+            'week-numbers-disabled' : !this.weekNumbers,
+            'year-number-disabled'  : !this.yearNumber
+         }
       },
+      styleParams() {
+         return {
+            'font-size'     : this.fontSize + 'pt',
+            '--bg'          : this.bg && `url(${this.bg})`,
+            '--cutoff'      : this.cutoff + 'mm',
+            '--page-width'  : this.pageSize[0] + 'mm',
+            '--page-height' : this.pageSize[1] + 'mm'
+         }
+      }
    },
 
    methods: {
@@ -89,10 +102,10 @@ const vm = createApp({
          this.db?.deleteItem('bg');
       },
       updateFontSize() {
-         this.fontSize = Math.floor(this.pageSize[1] * 2.6);
+         this.fontSize = Math.floor(this.pageSize[1] * 0.26);
       },
       updatePageSize() {
-         document.getElementById('pageSize').textContent = `@page { size: ${this.pageSize[0]}cm ${this.pageSize[1]}cm }`;
+         document.getElementById('pageSize').textContent = `@page { size: ${this.pageSize[0]+this.cutoff*2}mm ${this.pageSize[1]+this.cutoff*2}mm }`;
       },
       openDropdown(event) {
          event.target.firstElementChild.click();

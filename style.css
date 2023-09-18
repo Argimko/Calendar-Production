@@ -95,11 +95,6 @@ button {
 #settings > label:hover .p-inputswitch.p-inputswitch-checked:not(.p-disabled) .p-inputswitch-slider {
    background: #449e48;
 }
-#settings > label:hover .p-fileupload-choose:not(.p-disabled) {
-   background: #449e48;
-   border-color: #449e48;
-   color: #ffffff;
-}
 #settings > :is(label, .label) > :last-child {
    display: flex;
    width: 53%;
@@ -167,14 +162,14 @@ button {
 
 /* Страница календаря */
 .vanilla-calendar-column {
-   width: var(--page-width);
-   height: var(--page-height);
+   width: calc(var(--page-width) + var(--cutoff) * 2);
+   height: calc(var(--page-height) + var(--cutoff) * 2);
+   padding: var(--cutoff) calc(1.7% + var(--cutoff)) 0;
    background-image: var(--bg);
    background-size: cover;
-   outline: 2px dashed rgb(171 171 171);
-   outline-offset: -1px;
+   outline: 2px dashed rgb(125 125 125);
+   outline-offset: calc(-1px - var(--cutoff));
    page-break-after: always;
-   padding: 0 1.7% 0;
 }
 
 /* Месяц, Год */
@@ -285,12 +280,9 @@ button {
 /* Для печати */
 @media print {
    .vanilla-calendar-column {
-      outline: none;
       width: 100vw;
       height: 100vh;
-      /*position: relative;*/
-      /*left: -80px;*/
-      /*right: -100px;*/
+      outline: none;
    }
    #sidebar, #calendar_preview_year, #toast {
       display: none;

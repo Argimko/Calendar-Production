@@ -37,8 +37,7 @@
    </head>
    
    <body id="app" v-cloak>
-      <div :class="{ 'outside-days-disabled': !daysOutside, 'week-numbers-disabled': !weekNumbers, 'year-number-disabled': !yearNumber }"
-           :style="{ 'font-size': fontSize+'pt', '--bg': bgUrl, '--page-width': pageSize[0]+'cm', '--page-height': pageSize[1]+'cm' }">
+      <div :class="classParams" :style="styleParams">
          <div id="calendar"></div>
       </div>
       <div id="calendar_preview_year"></div>
@@ -48,12 +47,12 @@
          <div id="settings">
             <h2>Настройки</h2>
             
-            <label>Фон
+            <div class="label">Фон
                <div>
                   <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
                   <p-button icon="pi pi-times" severity="secondary" :disabled="!bg" @click="bgClear"></p-button>
                </div>
-            </label>
+            </div>
 
             <div class="label" @click.self="openDropdown">Размер бумаги
                <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
