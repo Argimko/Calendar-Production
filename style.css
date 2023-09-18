@@ -21,11 +21,7 @@
 h1 {
    font-size: 1.3rem;
    font-weight: 500;
-   padding: 1rem 0.7rem;
-   margin: 0 0 0.7rem;
-   border-bottom-right-radius: 5px;
-   background: rgb(255 255 255 / 80%);
-   backdrop-filter: blur(3px);
+   margin: 0px -10px 1.3rem 0;
    cursor: default;
 }
 #calendar_preview_year {
@@ -62,33 +58,17 @@ button {
 }
 
 /* Панель слева, настройки */
-#sidebar {
-   position: fixed;
-   inset: 0 auto auto 10px;
-}
-#sidebar .warning {
-   background: rgb(251 192 45);
-   padding-left: 13px;
-   padding-right: 13px;
-   border-radius: 6px;
-   padding-bottom: 3px;
-}
 #settings {
+   position: fixed;
+   inset: 0 auto auto 0;
    display: flex;
    font-size: 14.5px;
    flex-direction: column;
-   gap: 20px;
-   padding: 17px 20px 23px;
-   width: 330px;
-   border-radius: 5px;
+   padding: 20px 25px 23px 30px;
+   width: 350px;
+   border-bottom-right-radius: 5px;
    background: rgb(233 233 233 / 70%);
    backdrop-filter: blur(3px);
-}
-#settings h2 {
-   font-size: 1.2rem;
-   font-weight: 500;
-   margin: 0;
-   cursor: default;
 }
 #settings :is(label, .label) {
    user-select: none;
@@ -97,6 +77,7 @@ button {
    display: flex;
    align-items: center;
    justify-content: space-between;
+   height: 55px;
 }
 #settings .label:hover .p-dropdown:not(.p-disabled) {
    border-color: #4CAF50;
@@ -315,7 +296,7 @@ button {
       height: 100vh;
       outline: none;
    }
-   #sidebar, #calendar_preview_year, #toast {
+   #settings, #calendar_preview_year, #toast {
       display: none;
    }
 }

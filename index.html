@@ -42,67 +42,65 @@
          <div id="calendar"></div>
       </div>
       <div id="calendar_preview_year"></div>
-      <div id="sidebar">
+      <div id="settings">
          <h1>Календарь производственный<br>(конструктор на <span id="header_year">2024</span> год)</h1>
-
-         <div id="settings">
-            <h2>Настройки</h2>
-            
-            <div class="label">Фон
-               <div>
-                  <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
-                  <p-button icon="pi pi-times" severity="secondary" :disabled="!bg" @click="bgClear"></p-button>
-               </div>
-            </div>
-
-            <div class="label" @click.self="openDropdown">Размер бумаги
-               <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
-            </div>
-            
-            <label>В обрез
-               <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false" highlight-on-focus
-                              @input="updateModel" @mousedown="selectAll"></p-inputnumber>
-            </label>
-
-            <label>Размер шрифта
-               <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="10" :max="100" :allow-empty="false" highlight-on-focus
-                              @input="updateModel" @mousedown="selectAll"></p-inputnumber>
-            </label>
-
+         
+         <div class="label">Фон
             <div>
-               Названия дней недели
-               <div>
-                  <span class="monospace">#{{ weekDaysColor }}</span>
-                  <p-colorpicker v-model="weekDaysColor"></p-colorpicker>
-               </div>
+               <p-fileupload mode="basic" accept="image/*" choose-label="Выбрать" auto custom-upload @select="bgSelect"></p-fileupload>
+               <p-button icon="pi pi-times" severity="secondary" :disabled="!bg" @click="bgClear"></p-button>
             </div>
-
-            <div>
-               <label>Номера недели
-                  <div>
-                     <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
-                  </div>
-               </label>
-               <div>
-                  <span v-show="weekNumbers" class="monospace">#{{ weeksColor }}</span>
-                  <p-colorpicker v-show="weekNumbers" v-model="weeksColor"></p-colorpicker>
-               </div>
-            </div>
-
-            <label>Смежные месяцы
-               <div>
-                  <p-inputswitch v-model="daysOutside" @click.prevent></p-inputswitch>
-               </div>
-            </label>
-
-            <label>Отображать год
-               <div>
-                  <p-inputswitch v-model="yearNumber" @click.prevent></p-inputswitch>
-               </div>
-            </label>
-            
-            <p-button label="Печать" icon="pi pi-print" :loading="printLoading" @click="printPage"></p-button>
          </div>
+
+         <div class="label" @click.self="openDropdown">Размер бумаги
+            <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
+         </div>
+         
+         <label>В обрез
+            <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false" highlight-on-focus
+                           @input="updateModel" @mousedown="selectAll"></p-inputnumber>
+         </label>
+
+         <label>Размер шрифта
+            <p-inputnumber v-model="fontSize" suffix=" пт" show-buttons :min="10" :max="100" :allow-empty="false" highlight-on-focus
+                           @input="updateModel" @mousedown="selectAll"></p-inputnumber>
+         </label>
+
+         <div>
+            <div class="label">
+            Названия дней недели
+         </div>
+            <div>
+               <span class="monospace">#{{ weekDaysColor }}</span>
+               <p-colorpicker v-model="weekDaysColor" append-to="self"></p-colorpicker>
+            </div>
+         </div>
+
+         <div>
+            <label>Номера недели
+               <div>
+                  <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
+               </div>
+            </label>
+            <div v-show="weekNumbers">
+               <span class="monospace">#{{ weeksColor }}</span>
+               <p-colorpicker v-model="weeksColor" append-to="self"></p-colorpicker>
+            </div>
+         </div>
+
+         <label>Смежные месяцы
+            <div>
+               <p-inputswitch v-model="daysOutside" @click.prevent></p-inputswitch>
+            </div>
+         </label>
+
+         <label>Отображать год
+            <div>
+               <p-inputswitch v-model="yearNumber" @click.prevent></p-inputswitch>
+            </div>
+         </label>
+         
+         <p-button label="Печать" icon="pi pi-print" :loading="printLoading" @click="printPage"></p-button>
       </div>
 
       <div id="toast">

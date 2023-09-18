@@ -4,7 +4,7 @@
 
 // Обработка ошибок
 function showError(msg) {
-   msg = msg.replaceAll('holidays.js', '<a href="holidays.js" target="_blank">holidays.js</a>');
+   msg = msg.replaceAll('holidays.js', '<i><a href="holidays.js" target="_blank">holidays.js</a></i>');
    document.getElementById('toast').insertAdjacentHTML('beforeend', `<div class="warn">❗ ${msg}</div>`);
 };
 
