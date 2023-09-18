@@ -14,13 +14,14 @@ const vm = createApp({
       try { pageSize.value = JSON.parse(localStorage['pageSize']) } catch { /* pass */ }
 
       const printLoading = ref(false);
-      const daysOutside = ref(localStorage['daysOutside'] != 'false');
-      const weekNumbers = ref(localStorage['weekNumbers'] != 'false');
-      const yearNumber = ref(localStorage['yearNumber'] == 'true');
-      const fontSize = ref(Number(localStorage['fontSize']));
-      const bg = ref(null);
+      const daysOutside  = ref(localStorage['daysOutside'] != 'false');
+      const weekNumbers  = ref(localStorage['weekNumbers'] != 'false');
+      const weeksColor   = ref(localStorage['weeksColor'] ?? '878787');
+      const yearNumber   = ref(localStorage['yearNumber'] == 'true');
+      const fontSize     = ref(Number(localStorage['fontSize']));
+      const bg           = ref(null);
 
-      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, yearNumber, fontSize, bg };
+      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, weeksColor, yearNumber, fontSize, bg };
    },
 
    mounted() {
@@ -57,6 +58,7 @@ const vm = createApp({
       daysOutside : value => localStorage['daysOutside'] = value,
       fontSize    : value => localStorage['fontSize'] = value,
       weekNumbers : value => localStorage['weekNumbers'] = value,
+      weeksColor  : value => localStorage['weeksColor'] = value,
       yearNumber  : value => localStorage['yearNumber'] = value,
       pageSize(value) {
          this.updateFontSize();
@@ -79,7 +81,8 @@ const vm = createApp({
             '--bg'          : this.bg && `url(${this.bg})`,
             '--cutoff'      : this.cutoff + 'mm',
             '--page-width'  : this.pageSize[0] + 'mm',
-            '--page-height' : this.pageSize[1] + 'mm'
+            '--page-height' : this.pageSize[1] + 'mm',
+            '--weeks-color' : '#' + this.weeksColor
          }
       }
    },
@@ -126,14 +129,16 @@ const vm = createApp({
    },
 
    components: {
-      'p-button': primevue.button,
-      'p-dropdown': primevue.dropdown,
-      'p-fileupload': primevue.fileupload,
-      'p-inputnumber': primevue.inputnumber,
-      'p-inputswitch': primevue.inputswitch,
+      'p-button'      : primevue.button,
+      'p-dropdown'    : primevue.dropdown,
+      'p-colorpicker' : primevue.colorpicker,
+      'p-fileupload'  : primevue.fileupload,
+      'p-inputnumber' : primevue.inputnumber,
+      'p-inputswitch' : primevue.inputswitch,
    }
 })
 .use(primevue.config.default, { ripple: true, pt: {
+   colorpicker: { input: { name: 'none' } },
    inputnumber: { input: { name: 'none' } },
    inputswitch: { hiddenInput: { name: 'none' } },
 }})

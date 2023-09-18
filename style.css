@@ -7,6 +7,14 @@
 [v-cloak] {
    display: none;
 }
+.p-colorpicker-panel[data-pc-section="panel"] {
+   border-radius: 3px;
+}
+.p-colorpicker-panel[data-pc-section="content"] {
+   border: none;
+   background: none;
+   box-shadow: none;
+}
 h1 {
    font-size: 1.3rem;
    font-weight: 500;
@@ -72,7 +80,6 @@ button {
    border-radius: 5px;
    background: rgb(233 233 233 / 70%);
    backdrop-filter: blur(3px);
-   user-select: none;
 }
 #settings h2 {
    font-size: 1.2rem;
@@ -80,24 +87,29 @@ button {
    margin: 0;
    cursor: default;
 }
-#settings > :is(label, .label) {
-   cursor: default;
+#settings :is(label, .label) {
+   user-select: none;
+}
+#settings :is(label, .label), #settings > div {
    display: flex;
    align-items: center;
    justify-content: space-between;
 }
-#settings > .label:hover .p-dropdown:not(.p-disabled) {
+#settings .label:hover .p-dropdown:not(.p-disabled) {
    border-color: #4CAF50;
 }
-#settings > label:hover .p-inputswitch:not(.p-disabled) .p-inputswitch-slider {
+#settings label:hover .p-inputswitch:not(.p-disabled) .p-inputswitch-slider {
    background: #b6bfc8;
 }
-#settings > label:hover .p-inputswitch.p-inputswitch-checked:not(.p-disabled) .p-inputswitch-slider {
+#settings label:hover .p-inputswitch.p-inputswitch-checked:not(.p-disabled) .p-inputswitch-slider {
    background: #449e48;
 }
-#settings > :is(label, .label) > :last-child {
+#settings :is(label, .label) > :last-child:not(:has(.p-inputswitch)) {
    display: flex;
-   width: 53%;
+   width: 155px;
+}
+#settings label:has(.p-inputswitch) {
+   width: 183px;
 }
 #settings .p-button:focus {
    z-index: 1;
@@ -118,12 +130,27 @@ button {
    border-bottom-left-radius: 0;
    margin-left: 1px;
 }
-#settings .p-inputtext {
+#settings .p-inputnumber-input {
    width: 100%;
+}
+#settings .p-colorpicker {
+   align-self: baseline;
+}
+#settings .p-colorpicker-preview {
+   width: 1.75rem;
+   height: 1.75rem;
+   transition-property: color, border-color, box-shadow;
 }
 #settings .p-button-icon-left::before {
    display: inline-block;
    width: 1rem;
+}
+#settings .monospace {
+   font: 13px monospace;
+   color: #333;
+   padding-left: 9px;
+   padding-bottom: 2px;
+   user-select: all;
 }
 #settings > button {
    font-size: 17px;
@@ -271,7 +298,7 @@ button {
    font: 300 0.5em/2.5 math, serif;
    align-items: baseline;
    height: 2em;
-   color: rgb(135 135 135);
+   color: var(--weeks-color);
    cursor: default;
 }
 

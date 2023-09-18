@@ -23,6 +23,7 @@
       <script src="./vendors/vue@3.3.4/dist/vue.global.js" defer></script>
       <script src="./vendors/primevue@3.34.1/core/core.min.js" defer></script>
       <script src="./vendors/primevue@3.34.1/button/button.min.js" defer></script>
+      <script src="./vendors/primevue@3.34.1/colorpicker/colorpicker.min.js" defer></script>
       <script src="./vendors/primevue@3.34.1/fileupload/fileupload.min.js" defer></script>
       <script src="./vendors/primevue@3.34.1/inputnumber/inputnumber.min.js" defer></script>
       <script src="./vendors/primevue@3.34.1/inputswitch/inputswitch.min.js" defer></script>
@@ -74,11 +75,15 @@
                </div>
             </label>
 
-            <label>Номера недели
-               <div>
-                  <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
-               </div>
-            </label>
+            <div>
+               <label>Номера недели
+                  <div>
+                     <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
+                  </div>
+               </label>
+               <span v-show="weekNumbers" class="monospace">#{{ weeksColor }}</span>
+               <p-colorpicker v-show="weekNumbers" v-model="weeksColor"></p-colorpicker>
+            </div>
 
             <label>Смежные месяцы
                <div>
