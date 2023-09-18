@@ -13,15 +13,16 @@ const vm = createApp({
       const pageSize = ref(sizes.value[0].value);
       try { pageSize.value = JSON.parse(localStorage['pageSize']) } catch { /* pass */ }
 
-      const printLoading = ref(false);
-      const daysOutside  = ref(localStorage['daysOutside'] != 'false');
-      const weekNumbers  = ref(localStorage['weekNumbers'] != 'false');
-      const weeksColor   = ref(localStorage['weeksColor'] ?? '878787');
-      const yearNumber   = ref(localStorage['yearNumber'] == 'true');
-      const fontSize     = ref(Number(localStorage['fontSize']));
-      const bg           = ref(null);
+      const printLoading  = ref(false);
+      const daysOutside   = ref(localStorage['daysOutside'] != 'false');
+      const weekNumbers   = ref(localStorage['weekNumbers'] != 'false');
+      const weeksColor    = ref(localStorage['weeksColor'] ?? '878787');
+      const weekDaysColor = ref(localStorage['weekDaysColor'] ?? '939393');
+      const yearNumber    = ref(localStorage['yearNumber'] == 'true');
+      const fontSize      = ref(Number(localStorage['fontSize']));
+      const bg            = ref(null);
 
-      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, weeksColor, yearNumber, fontSize, bg };
+      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, weeksColor, weekDaysColor, yearNumber, fontSize, bg };
    },
 
    mounted() {
@@ -54,12 +55,13 @@ const vm = createApp({
    },
    
    watch: {
-      cutoff      : value => localStorage['cutoff'] = value,
-      daysOutside : value => localStorage['daysOutside'] = value,
-      fontSize    : value => localStorage['fontSize'] = value,
-      weekNumbers : value => localStorage['weekNumbers'] = value,
-      weeksColor  : value => localStorage['weeksColor'] = value,
-      yearNumber  : value => localStorage['yearNumber'] = value,
+      cutoff        : value => localStorage['cutoff'] = value,
+      daysOutside   : value => localStorage['daysOutside'] = value,
+      fontSize      : value => localStorage['fontSize'] = value,
+      weekNumbers   : value => localStorage['weekNumbers'] = value,
+      weeksColor    : value => localStorage['weeksColor'] = value,
+      weekDaysColor : value => localStorage['weekDaysColor'] = value,
+      yearNumber    : value => localStorage['yearNumber'] = value,
       pageSize(value) {
          this.updateFontSize();
          this.updatePageSize();
@@ -77,12 +79,13 @@ const vm = createApp({
       },
       styleParams() {
          return {
-            'font-size'     : this.fontSize + 'pt',
-            '--bg'          : this.bg && `url(${this.bg})`,
-            '--cutoff'      : this.cutoff + 'mm',
-            '--page-width'  : this.pageSize[0] + 'mm',
-            '--page-height' : this.pageSize[1] + 'mm',
-            '--weeks-color' : '#' + this.weeksColor
+            'font-size'         : this.fontSize + 'pt',
+            '--bg'              : this.bg && `url(${this.bg})`,
+            '--cutoff'          : this.cutoff + 'mm',
+            '--page-width'      : this.pageSize[0] + 'mm',
+            '--page-height'     : this.pageSize[1] + 'mm',
+            '--weeks-color'     : '#' + this.weeksColor,
+            '--week-days-color' : '#' + this.weekDaysColor,
          }
       }
    },

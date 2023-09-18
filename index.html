@@ -69,11 +69,13 @@
                               @input="updateModel" @mousedown="selectAll"></p-inputnumber>
             </label>
 
-            <label>Номер года
+            <div>
+               Названия дней недели
                <div>
-                  <p-inputswitch v-model="yearNumber" @click.prevent></p-inputswitch>
+                  <span class="monospace">#{{ weekDaysColor }}</span>
+                  <p-colorpicker v-model="weekDaysColor"></p-colorpicker>
                </div>
-            </label>
+            </div>
 
             <div>
                <label>Номера недели
@@ -81,13 +83,21 @@
                      <p-inputswitch v-model="weekNumbers" @click.prevent></p-inputswitch>
                   </div>
                </label>
-               <span v-show="weekNumbers" class="monospace">#{{ weeksColor }}</span>
-               <p-colorpicker v-show="weekNumbers" v-model="weeksColor"></p-colorpicker>
+               <div>
+                  <span v-show="weekNumbers" class="monospace">#{{ weeksColor }}</span>
+                  <p-colorpicker v-show="weekNumbers" v-model="weeksColor"></p-colorpicker>
+               </div>
             </div>
 
             <label>Смежные месяцы
                <div>
                   <p-inputswitch v-model="daysOutside" @click.prevent></p-inputswitch>
+               </div>
+            </label>
+
+            <label>Отображать год
+               <div>
+                  <p-inputswitch v-model="yearNumber" @click.prevent></p-inputswitch>
                </div>
             </label>
             
