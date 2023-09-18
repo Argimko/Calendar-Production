@@ -18,7 +18,7 @@ const vm = createApp({
       const weekNumbers = ref(localStorage['weekNumbers'] != 'false');
       const yearNumber = ref(localStorage['yearNumber'] == 'true');
       const fontSize = ref(Number(localStorage['fontSize']));
-      const bg = ref();
+      const bg = ref(null);
 
       return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, yearNumber, fontSize, bg };
    },
@@ -76,6 +76,7 @@ const vm = createApp({
          this.printLoading = true;
          setTimeout(() => {
             this.printLoading = false;
+            document.title = `Календарь на ${document.getElementById('calendar_preview_year').dataset.year} год`;
             queueMicrotask(window.print);
          }, 500);
       },

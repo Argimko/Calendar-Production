@@ -2,6 +2,12 @@
  * Vanilla Calendar - https://vanilla-calendar.com/docs/reference/additionally/settings
  */
 
+// Обработка ошибок
+function showError(msg) {
+   msg = msg.replaceAll('holidays.js', '<a href="holidays.js" target="_blank">holidays.js</a>');
+   document.getElementById('toast').insertAdjacentHTML('beforeend', `<div class="warn">❗ ${msg}</div>`);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
    let startDate = new Date();
    if (startDate.getMonth() > 7) {
@@ -55,28 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
    if (endDate.getFullYear() != calendar.selectedYear)
       yearsText += `-${endDate.getFullYear()}`;
 
+   // Устанавливаем значение года календаря внизу страницы для сверки
    document.getElementById('calendar_preview_year').dataset.year = yearsText;
-   document.title += ` – ${yearsText} год`;
-   let header_year = document.getElementById('header_year');
-   if (header_year.textContent != yearsText) {
-      header_year.textContent = yearsText;
-      header_year.classList.add('warning');
-      header_year.title = 'Значение #header_year в HTML должено быть установлено на текущий год';
-   }
 
+   // Проверка: Значение года в document.title и h1
+   if (!document.title.includes(startDate.getFullYear()) || document.getElementById('header_year').textContent != startDate.getFullYear())
+      showError('Значения года в HTML <i>document.title, #header_year</i> должны быть равны <i>startDate.getFullYear()</i>');
+
+   // Считаем количество отображаемых выходных
    startDate = new Date(calendar.selectedYear, calendar.selectedMonth);
    let displayHolidaysCount = calendar.selectedHolidays.filter(d => {
       const date = new Date(`${d}T00:00:00`);
       return date >= startDate && date <= endDate;
    }).length;
-
-   // Обработка ошибок
-   const showError = msg => {
-      msg = msg.replaceAll('holidays.js', '<a href="holidays.js" target="_blank">holidays.js</a>');
-      // console.warn(msg);
-      document.getElementById('toast').insertAdjacentHTML('beforeend', `<div class="warn">❗ ${msg}</div>`);
-      // alert('❗ ' + msg.replaceAll(/<\/?[^>]+(>|$)/g, ''));
-   };
 
    // Проверка: Опция [settings.visibility.weekend] должна быть отключена
    if (calendar.settings.visibility.weekend) {

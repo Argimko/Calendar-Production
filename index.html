@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta charset="utf-8">
-      <title>Календарь</title>
+      <title>Календарь производственный на 2024 год – Конструктор</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <meta property="og:title" content="">
@@ -43,7 +43,7 @@
       </div>
       <div id="calendar_preview_year"></div>
       <div id="sidebar">
-         <h1>Производственный календарь РФ<br>(конструктор на <span id="header_year">2024</span> год)</h1>
+         <h1>Календарь производственный<br>(конструктор на <span id="header_year">2024</span> год)</h1>
 
          <div id="settings">
             <h2>Настройки</h2>
@@ -58,6 +58,7 @@
             <div class="label" @click.self="openDropdown">Размер бумаги
                <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
             </div>
+            
             <label>В обрез
                <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false" highlight-on-focus
                               @input="updateModel" @mousedown="selectAll"></p-inputnumber>
