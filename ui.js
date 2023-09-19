@@ -13,16 +13,20 @@ const vm = createApp({
       const pageSize = ref(sizes.value[0].value);
       try { pageSize.value = JSON.parse(localStorage['pageSize']) } catch { /* pass */ }
 
+      const weeksColorDef    = '878787';
+      const weekDaysColorDef = '939393';
+
+      const bg            = ref(null);
+      const fontSize      = ref(Number(localStorage['fontSize']));
       const printLoading  = ref(false);
       const daysOutside   = ref(localStorage['daysOutside'] != 'false');
       const weekNumbers   = ref(localStorage['weekNumbers'] != 'false');
-      const weeksColor    = ref(localStorage['weeksColor'] ?? '878787');
-      const weekDaysColor = ref(localStorage['weekDaysColor'] ?? '939393');
+      const weeksColor    = ref(localStorage['weeksColor'] ?? weeksColorDef);
+      const weekDaysColor = ref(localStorage['weekDaysColor'] ?? weekDaysColorDef);
       const yearNumber    = ref(localStorage['yearNumber'] == 'true');
-      const fontSize      = ref(Number(localStorage['fontSize']));
-      const bg            = ref(null);
 
-      return { pageSize, sizes, printLoading, cutoff, daysOutside, weekNumbers, weeksColor, weekDaysColor, yearNumber, fontSize, bg };
+      return { bg, fontSize, pageSize, sizes, printLoading, cutoff, daysOutside, 
+               weekNumbers, weeksColor, weeksColorDef, weekDaysColor, weekDaysColorDef, yearNumber };
    },
 
    mounted() {

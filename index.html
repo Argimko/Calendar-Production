@@ -56,7 +56,7 @@
             <p-dropdown v-model="pageSize" :options="sizes" option-label="label" option-value="value"></p-dropdown>
          </div>
          
-         <label>В обрез
+         <label>Под обрез
             <p-inputnumber v-model="cutoff" suffix=" мм" show-buttons :min="0" :max="10" :allow-empty="false" highlight-on-focus
                            @input="updateModel" @mousedown="selectAll"></p-inputnumber>
          </label>
@@ -73,6 +73,8 @@
             <div>
                <span class="monospace">#{{ weekDaysColor }}</span>
                <p-colorpicker v-model="weekDaysColor" append-to="self"></p-colorpicker>
+               <div v-show="weekDaysColor != weekDaysColorDef" class="reset-color pi pi-replay" title="Восстановить цвет по умолчанию"
+                    @click="weekDaysColor = weekDaysColorDef"></div>
             </div>
          </div>
 
@@ -85,6 +87,8 @@
             <div v-show="weekNumbers">
                <span class="monospace">#{{ weeksColor }}</span>
                <p-colorpicker v-model="weeksColor" append-to="self"></p-colorpicker>
+               <div v-show="weeksColor != weeksColorDef" class="reset-color pi pi-replay" title="Восстановить цвет по умолчанию"
+                    @click="weeksColor = weeksColorDef"></div>
             </div>
          </div>
 
