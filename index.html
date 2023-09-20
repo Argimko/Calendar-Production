@@ -104,7 +104,7 @@
             </div>
          </label>
          
-         <p-button label="Печать" icon="pi pi-print" :loading="printLoading" @click="printPage"></p-button>
+         <p-button label="Печать" icon="pi pi-print" :loading="printLoading" :disabled="printDisabled" @click="printPage"></p-button>
       </div>
 
       <div id="toast">

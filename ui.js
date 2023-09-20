@@ -19,13 +19,14 @@ const vm = createApp({
       const bg            = ref(null);
       const fontSize      = ref(Number(localStorage['fontSize']));
       const printLoading  = ref(false);
+      const printDisabled = ref(false);
       const daysOutside   = ref(localStorage['daysOutside'] != 'false');
       const weekNumbers   = ref(localStorage['weekNumbers'] != 'false');
       const weeksColor    = ref(localStorage['weeksColor'] ?? weeksColorDef);
       const weekDaysColor = ref(localStorage['weekDaysColor'] ?? weekDaysColorDef);
       const yearNumber    = ref(localStorage['yearNumber'] == 'true');
 
-      return { bg, fontSize, pageSize, sizes, printLoading, cutoff, daysOutside, 
+      return { bg, fontSize, pageSize, sizes, printLoading, printDisabled, cutoff, daysOutside, 
                weekNumbers, weeksColor, weeksColorDef, weekDaysColor, weekDaysColorDef, yearNumber };
    },
 
@@ -97,10 +98,14 @@ const vm = createApp({
    methods: {
       printPage() {
          this.printLoading = true;
+         document.title = `Календарь на ${document.getElementById('calendar_preview_year').dataset.year} год`;
          setTimeout(() => {
+            this.printDisabled = true;
             this.printLoading = false;
-            document.title = `Календарь на ${document.getElementById('calendar_preview_year').dataset.year} год`;
-            queueMicrotask(window.print);
+            queueMicrotask(() => {
+               window.print();
+               this.printDisabled = false;
+            });
          }, 500);
       },
       bgSelect(event) {
