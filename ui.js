@@ -24,7 +24,7 @@ const vm = createApp({
       const weekNumbers   = ref(localStorage['weekNumbers'] != 'false');
       const weeksColor    = ref(localStorage['weeksColor'] ?? weeksColorDef);
       const weekDaysColor = ref(localStorage['weekDaysColor'] ?? weekDaysColorDef);
-      const yearNumber    = ref(localStorage['yearNumber'] == 'true');
+      const yearNumber    = ref(localStorage['yearNumber'] != 'false');
 
       return { bg, fontSize, pageSize, sizes, printLoading, printDisabled, cutoff, daysOutside, 
                weekNumbers, weeksColor, weeksColorDef, weekDaysColor, weekDaysColorDef, yearNumber };
