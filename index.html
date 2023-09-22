@@ -41,7 +41,7 @@
       <div :class="classParams" :style="styleParams">
          <div id="calendar"></div>
       </div>
-      <div id="calendar_preview_year"></div>
+      <div id="calendar_preview_year" v-show="!yearNumber"></div>
       <div id="settings">
          <h1>Календарь производственный<br>(конструктор на <span id="header_year">2024</span> год)</h1>
          
