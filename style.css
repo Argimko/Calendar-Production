@@ -276,7 +276,7 @@ button {
 
 /* Выходные дни прошлого и следующего месяца */
 .vanilla-calendar-day__btn_holiday:is(.vanilla-calendar-day__btn_prev, .vanilla-calendar-day__btn_next) {
-   color: rgb(255 187 178);
+   color: rgb(241 153 142);
 }
 
 /* Номера недели */
