@@ -1,4 +1,4 @@
-@charset "UTF-8"; 
+@charset "UTF-8";
 
 /* Основные стили */
 :root {
@@ -77,7 +77,7 @@ button {
    display: flex;
    align-items: center;
    justify-content: space-between;
-   height: 55px;
+   height: 54px;
 }
 #settings .label:hover .p-dropdown:not(.p-disabled) {
    border-color: #4CAF50;
